@@ -1,15 +1,26 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as Animatable from 'react-native-animatable';
 
 export default function Bem_Vindo() {
-    useFonts({ 'Satoshi': require('../assets/fonts/Satoshi-Bold.otf') });
+    const [fontsLoaded] = useFonts({
+        'Satoshi-Bold': require('../assets/fonts/Satoshi-Bold.otf'),
+        'Satoshi-Regular': require('../assets/fonts/Satoshi-Regular.otf'),
+        'Satoshi-Medium': require('../assets/fonts/Satoshi-Medium.otf'),
+        'Satoshi-LightItalic': require('../assets/fonts/Satoshi-Medium.otf') 
+    });
+
+    if (!fontsLoaded) {
+        return <Text>Carregando fontes...</Text>;
+    }
+
     const navigation = useNavigation();
 
     return (
-        <View style={styles.container} >
+        <View style={styles.container}>
+            <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
             <View style={styles.containerLogo}>
                 <Animatable.Image
                     delay={1000}
@@ -33,10 +44,11 @@ export default function Bem_Vindo() {
                         Acessar
                     </Text>
                 </TouchableOpacity>
-                </Animatable.View>
+            </Animatable.View>
         </View>
     )
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -57,23 +69,33 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         paddingStart: '5%',
+        fontFamily: 'Satoshi-Regular',
         paddingEnd: '5%'
     },
     title: {
         fontSize: 24,
         marginTop: 20,
-        fontFamily: 'Satoshi',
+        fontFamily: 'Satoshi-Bold',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        justifyContent: 'center',
         marginBottom: 12,
         color: "#FFF"
     },
     text: {
-        color: '#a1a1a1'
+        color: '#fff',
+        fontFamily: 'Satoshi-Regular',
+        textAlign: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center'
     },
     button: {
         position: 'absolute',
         backgroundColor: '#FFF',
         borderRadius: 50,
         paddingVertical: 8,
+        fontFamily: 'Satoshi-Bold',
         width: '60%',
         alignSelf: 'center',
         bottom: '15%',
